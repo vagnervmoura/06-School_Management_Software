@@ -3,6 +3,8 @@
 # on terminal to execute this EMPLOYEE CLASSES and get the inputs from a text file "employees.txt"
 # type on terminal: Get-Content input_school.txt | python main_test_school.py 
 
+import re
+
 v_option = None
 list_of_students = []
 list_of_teachers = []
@@ -136,7 +138,27 @@ def f_manage():
                         print(f"List of students in class: ")
                         print(*manage_classe["v_students"], sep = "\n")                   
                 else:
-                    break                          
+                    break  
+                
+        if v_manage == 2: # - 'student': Prompt for a student's first and last name, the program should list all the classes the student attends and the teachers of these classes.
+            print("You choose the option {} to manage a student.".format(v_manage))
+            student_name = input("Enter the name of the student you want to manage, or press 'q' to quit: \n")
+            print(f"Student Selected: {student_name}\n\n")
+            print(f"The student {student_name} is in the following classes: ")
+            while student_name != "q":
+                for manage_student in list_of_students:
+                    if manage_student["v_name"] == student_name:
+                        print(manage_student['v_classe'])
+                        
+                for manage_teacher_of_student in list_of_teachers:
+                    for manage_student in list_of_students:
+                        if manage_student["v_name"] == student_name:
+                            if manage_teacher_of_student.classe == manage_student["v_classe"]:
+                                print(f"The teacher of the class {manage_student['v_classe']} is {manage_teacher_of_student.name}")               
+                break                               
+
+
+
     except ValueError:
         print("Sorry, you did not input a valid value.\n")  
     
