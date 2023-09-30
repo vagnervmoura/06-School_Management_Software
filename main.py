@@ -55,7 +55,7 @@ def f_create():
     try:
         v_create = int(input("Choose your options to create:\n1 - Student\n2 - Teacher\n3 - Homeroom Teacher\n0 - To return to the main Menu\n\n"))
         if v_create == 1:
-            print("You choose the option {} to create a new tudent.".format(v_create))
+            print("You choose the option {} to create a new student.".format(v_create))
             while True:
                 selection = input("Enter 'a' to add a new student or 'q' to quit: ")
                 if selection == "q":
@@ -88,7 +88,8 @@ def f_create():
         elif v_create == 3:
             print("You choose the option {} to create a new Homeroom Teacher.".format(v_create))
             while True:
-                selection = input("Enter 'a' to add a new Homeroom Teacher or press 'q'to quit to main menu: ")
+                selection = input("Enter 'a' to add a new Homeroom Teacher or press 'q'to quit to main menu: \n")
+                print(f"You choose the option {selection}\n")
                 if selection == "q":
                     break
                 elif selection == "a":
@@ -100,12 +101,16 @@ def f_create():
                     print()                          
                     
                     new_homeroom_teacher = HomeroomTeacher(name=name, classe=classe, students=classe_of_students)
-                    list_of_homeroom_teachers.append(new_homeroom_teacher)
+                    homeroomTeacher_name = new_homeroom_teacher.name
+                    homeroomTeacher_classe = new_homeroom_teacher.classe
+                    homeroomTeacher_students = new_homeroom_teacher.students
+                    list_of_homeroom_teachers.append({"v_name": homeroomTeacher_name, "v_classe": classe, "v_students": homeroomTeacher_students})
+                    
                     number_of_students = len(list_of_homeroom_teachers) + 1
                     print(f"Homeroom Teacher {name} added")
-                    print(f"Homeroom Teacher {name} has {len(new_homeroom_teacher.students)} students.")
-                    print(f"List of students in class: ")
-                    print(*new_homeroom_teacher.students, sep = "\n")
+#                    print(f"Homeroom Teacher {name} has {len(new_homeroom_teacher.students)} students.")
+#                    print(f"List of students in class: ")
+#                    print(*homeroomTeacher_students, sep = "\n")
                     print()
                     print()
  
@@ -115,8 +120,25 @@ def f_create():
     
     
 def f_manage():
+    print("=" * 50)
     print("You are managing the sytem")
     
+    try:
+        v_manage = int(input("Choose your options to manage:\n1 - Class\n2 - Student\n3 - Teacher\n4 - Homeroom Teacher\n0 - To return to the main Menu\n\n"))        
+        if v_manage == 1: #  - 'class': Prompt for a class to display (e.g., "3C"), the program should list all students in the class and the homeroom teacher.
+            print("You choose the option {} to manage a class.".format(v_manage))
+            classe = input("Enter the class you want to manage, or press 'q' to quit: \n")
+            print(f"Class Selected: {classe}")
+            while classe != "q":
+                for manage_classe in list_of_homeroom_teachers:
+                    if manage_classe["v_classe"] == classe:
+                        print(f"Homeroom teacher for class {classe}: {manage_classe['v_name']}")
+                        print(f"List of students in class: ")
+                        print(*manage_classe["v_students"], sep = "\n")                   
+                else:
+                    break                          
+    except ValueError:
+        print("Sorry, you did not input a valid value.\n")  
     
 # MAIN MENU
 line = 1
@@ -129,9 +151,9 @@ while v_option != 0:
     print(" "*6+"/"+" "*15+"1 - Create"+" "*23+"/")
     print(" "*6+"/"+" "*15+"2 - Manage"+" "*23+"/")
     print(" "*6+"/"+" "*15+"0 - end"+" "*26+"/")
-    v_option = int(input())
     print(" "*6+"/" + " " * 48 + "/", sep="")
     print(" "*6+"/" * 50)
+    v_option = int(input())
 
     try:
         if v_option == 0:
@@ -148,11 +170,11 @@ while v_option != 0:
     
     except ValueError:
         print("Sorry, you did not input a valid value.\n")  
-        
+     
+       
         
         
 # CREATE Process
 
 
 # MANAGE Process
-
