@@ -171,7 +171,16 @@ def f_manage():
                         print(manage_teacher['v_classe'])
                 break
             
-        
+        if v_manage == 4: #  - 'homeroom teacher': Prompt for a homeroom teacher's first and last name, the program should list all students the homeroom teacher leads.
+            print("You choose the option {} to manage a homeroom teacher.".format(v_manage))
+            homeroomTeacher_name = input("Enter the name of the homeroom teacher you want to manage, or press 'q' to quit: \n")
+            print(f"Homeroom Teacher Selected: {homeroomTeacher_name}\n\n")
+            print(f"The homeroom teacher {homeroomTeacher_name} leads the following students: ")
+            while homeroomTeacher_name != "q":
+                for manage_homeroomTeacher in list_of_homeroom_teachers:
+                    if manage_homeroomTeacher["v_name"] == homeroomTeacher_name:
+                        print(*manage_homeroomTeacher["v_students"], sep = "\n")
+                break
 
     except ValueError:
         print("Sorry, you did not input a valid value.\n")  
