@@ -84,7 +84,10 @@ def f_create():
                     classe = input("Enter the class of the teacher: ")
         
                     new_teacher = Teacher(name=name, subject=subject, classe=classe)
-                    list_of_teachers.append(new_teacher)
+                    teacher_name = new_teacher.name
+                    teacher_subject = new_teacher.subject
+                    teacher_classe = new_teacher.classe
+                    list_of_teachers.append({"v_name": teacher_name, "v_subject": teacher_subject, "v_classe": teacher_classe})
                     print(f"teacher {name} added")
                     
         elif v_create == 3:
@@ -153,11 +156,22 @@ def f_manage():
                 for manage_teacher_of_student in list_of_teachers:
                     for manage_student in list_of_students:
                         if manage_student["v_name"] == student_name:
-                            if manage_teacher_of_student.classe == manage_student["v_classe"]:
-                                print(f"The teacher of the class {manage_student['v_classe']} is {manage_teacher_of_student.name}")               
+                            if manage_teacher_of_student["v_classe"] == manage_student["v_classe"]:
+                                print(f"The teacher of the class {manage_student['v_classe']} is {manage_teacher_of_student['v_name']}")               
                 break                               
 
-
+        if v_manage == 3: #  - 'teacher': Prompt for a teacher's first and last name, the program should list all the classes the teacher teaches.
+            print("You choose the option {} to manage a teacher.".format(v_manage))
+            teacher_name = input("Enter the name of the teacher you want to manage, or press 'q' to quit: \n")
+            print(f"Teacher Selected: {teacher_name}\n\n")
+            print(f"The teacher {teacher_name} teaches the following classes: ")
+            while teacher_name != "q":
+                for manage_teacher in list_of_teachers:
+                    if manage_teacher["v_name"] == teacher_name:
+                        print(manage_teacher['v_classe'])
+                break
+            
+        
 
     except ValueError:
         print("Sorry, you did not input a valid value.\n")  
