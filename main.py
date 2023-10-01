@@ -18,7 +18,7 @@ classe_of_students = []
 def goto(linenum):
     global line
     line = linenum
-    
+
     
 class Student:
     def __init__(self, name, classe):
@@ -34,6 +34,7 @@ class Teacher:
         self.name = name
         self.subject = subject
         self.classe = classe
+
 
 class HomeroomTeacher(Teacher):
     def __init__(self, name, classe, students):
@@ -226,3 +227,4 @@ while True:
     
     except ValueError:
         print("Sorry, you did not input a valid option.\n")  
+
