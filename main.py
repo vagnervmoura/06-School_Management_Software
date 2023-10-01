@@ -64,6 +64,8 @@ def f_create():
                     student_classe = new_student.classe
                     list_of_students.append({"v_name": student_name, "v_classe": student_classe})
                     print(f"student {name} added")
+                else:
+                    print(f"{selection} is not an valid option.\n")
         
         elif v_create == 2:
             print("You choose the option {} to create a new teacher.".format(v_create))
@@ -82,6 +84,8 @@ def f_create():
                     teacher_classe = new_teacher.classe
                     list_of_teachers.append({"v_name": teacher_name, "v_subject": teacher_subject, "v_classe": teacher_classe})
                     print(f"teacher {name} added")
+                else:
+                    print(f"{selection} is not an valid option.\n")
                     
         elif v_create == 3:
             print("You choose the option {} to create a new Homeroom Teacher.".format(v_create))
@@ -96,8 +100,7 @@ def f_create():
                     for students_in_classe in list_of_students:
                         if students_in_classe["v_classe"] == classe:
                             classe_of_students.append(students_in_classe["v_name"])
-                    print()                          
-                    
+                    print()                                              
                     new_homeroom_teacher = HomeroomTeacher(name=name, classe=classe, students=classe_of_students)
                     homeroomTeacher_name = new_homeroom_teacher.name
                     homeroomTeacher_classe = new_homeroom_teacher.classe
@@ -107,9 +110,15 @@ def f_create():
                     number_of_students = len(list_of_homeroom_teachers) + 1
                     print(f"Homeroom Teacher {name} added")
                     print()
-                    print()
- 
-        
+                    print()                    
+                else:
+                    print(f"{selection} is not an valid option.\n")                    
+        elif v_create == 0:
+            print("You choose the option {} to return to the main Menu.".format(v_create))
+            print()
+            print()            
+        else:
+            print(f"{v_create} is not an valid value.\n")        
     except ValueError:
         print("Sorry, you did not input a valid value.\n")          
     
@@ -133,7 +142,7 @@ def f_manage():
                 else:
                     break  
                 
-        if v_manage == 2: # - 'student': Prompt for a student's first and last name, the program should list all the classes the student attends and the teachers of these classes.
+        elif v_manage == 2: # - 'student': Prompt for a student's first and last name, the program should list all the classes the student attends and the teachers of these classes.
             print("You choose the option {} to manage a student.".format(v_manage))
             student_name = input("Enter the name of the student you want to manage, or press 'q' to quit: \n")
             print(f"Student Selected: {student_name}\n\n")
@@ -150,7 +159,7 @@ def f_manage():
                                 print(f"The teacher of the class {manage_student['v_classe']} is {manage_teacher_of_student['v_name']}")               
                 break                               
 
-        if v_manage == 3: #  - 'teacher': Prompt for a teacher's first and last name, the program should list all the classes the teacher teaches.
+        elif v_manage == 3: #  - 'teacher': Prompt for a teacher's first and last name, the program should list all the classes the teacher teaches.
             print("You choose the option {} to manage a teacher.".format(v_manage))
             teacher_name = input("Enter the name of the teacher you want to manage, or press 'q' to quit: \n")
             print(f"Teacher Selected: {teacher_name}\n\n")
@@ -161,7 +170,7 @@ def f_manage():
                         print(manage_teacher['v_classe'])
                 break
             
-        if v_manage == 4: #  - 'homeroom teacher': Prompt for a homeroom teacher's first and last name, the program should list all students the homeroom teacher leads.
+        elif v_manage == 4: #  - 'homeroom teacher': Prompt for a homeroom teacher's first and last name, the program should list all students the homeroom teacher leads.
             print("You choose the option {} to manage a homeroom teacher.".format(v_manage))
             homeroomTeacher_name = input("Enter the name of the homeroom teacher you want to manage, or press 'q' to quit: \n")
             print(f"Homeroom Teacher Selected: {homeroomTeacher_name}\n\n")
@@ -171,13 +180,21 @@ def f_manage():
                     if manage_homeroomTeacher["v_name"] == homeroomTeacher_name:
                         print(*manage_homeroomTeacher["v_students"], sep = "\n")
                 break
+            
+        elif v_manage == 0:
+            print("You choose the option {} to return to the main Menu.".format(v_manage))
+            print()
+            print()
+
+        else:
+            print(f"{v_manage} is not an valid value.\n") 
 
     except ValueError:
         print("Sorry, you did not input a valid value.\n")  
     
 # MAIN MENU
 line = 1
-while v_option != 0:
+while True:
     print()
     print(" "*6+"/" * 50 + "\n" +" "*6+ "/" + " " * 12 + "School Management System" + " " * 12 + "/" + "\n" +" "*6+ "/" * 50)
     print(" "*6+"/" + " " * 48 + "/", sep="")
@@ -188,9 +205,10 @@ while v_option != 0:
     print(" "*6+"/"+" "*15+"0 - end"+" "*26+"/")
     print(" "*6+"/" + " " * 48 + "/", sep="")
     print(" "*6+"/" * 50)
-    v_option = int(input())
 
     try:
+        v_option = int(input())
+        
         if v_option == 0:
             print("\nThank you for using our system.\n\n")
             exit()
@@ -202,7 +220,9 @@ while v_option != 0:
         elif v_option == 2: # option to MANAGE
             print("You choose the option {} to Manage.".format(v_option))
             f_manage()
+            
+        else:
+            print(f"{v_option} is not an valid option.\n")
     
     except ValueError:
-        print("Sorry, you did not input a valid value.\n")  
-
+        print("Sorry, you did not input a valid option.\n")  
